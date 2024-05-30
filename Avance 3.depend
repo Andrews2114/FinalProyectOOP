@@ -1,0 +1,66 @@
+# depslib dependency file v1.0
+1701036406 source:c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\episodio.cpp
+	"Episodio.h"
+
+1701036393 c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\episodio.h
+	<string>
+	<iostream>
+
+1701036533 source:c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\serie.cpp
+	"Serie.h"
+
+1701036533 c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\serie.h
+	<string>
+	<iostream>
+	"Episodio.h"
+
+1701039980 source:c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\main.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	"Serie.h"
+	"Episodio.h"
+	"Series.h"
+
+1701040723 c:\users\karak\onedrive\documentos\c++\ayuda\avance 3\series.h
+	<string>
+	<iostream>
+	<fstream>
+	<streambuf>
+	<sstream>
+	"Serie.h"
+
+1701036406 source:c:\users\karak\onedrive\documentos\c++\avance 3\episodio.cpp
+	"Episodio.h"
+
+1701474527 c:\users\karak\onedrive\documentos\c++\avance 3\episodio.h
+	<string>
+	<iostream>
+
+1701039980 source:c:\users\karak\onedrive\documentos\c++\avance 3\main.cpp
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	"Serie.h"
+	"Episodio.h"
+	"Series.h"
+
+1701464956 c:\users\karak\onedrive\documentos\c++\avance 3\serie.h
+	<string>
+	<iostream>
+	"Episodio.h"
+
+1701040723 c:\users\karak\onedrive\documentos\c++\avance 3\series.h
+	<string>
+	<iostream>
+	<fstream>
+	<streambuf>
+	<sstream>
+	"Serie.h"
+
+1701368493 source:c:\users\karak\onedrive\documentos\c++\avance 3\serie.cpp
+	"Serie.h"
+
+1701464915 source:c:\users\karak\onedrive\documentos\c++\avance 3\series.cpp
+	"Series.h"
+
