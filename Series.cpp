@@ -4,19 +4,16 @@
 
 // 1.
 Series::Series(){
-    cantidadSeries = 0;
-
+    N_series = 0;
+    N_movies = 0;
 }
     //Constructor default, inicializa el atributo cantidadSeries
     //con 0.
 
+void Series::setN_series(int _N_series){
 
-
-// 2.
-void Series::setCantidadSeries(int _cantidadSeries){
-
-    if(_cantidadSeries >= 0 && _cantidadSeries < 100){
-        cantidadSeries = _cantidadSeries;
+    if(_N_series >= 0 && _N_series < 100){
+        N_series = _N_series;
     }
 
 }
@@ -25,21 +22,26 @@ void Series::setCantidadSeries(int _cantidadSeries){
     Importante - validar que sea igual o mayor a 0 y menor a
     100, de lo contrario no lo cambia. */
 
-
-
 // 3.
-int Series::getCantidadSeries( ){
-    return cantidadSeries;
+int Series::getN_series( ){
+    return N_series;
 
 }
     /*retorna el valor del atributo cantidadSeries*/
 
-
+void Series::setN_movies(int _N_movies) {
+    if(_N_movies >= 0 && _N_movies < 100){
+        N_movies = _N_movies;
+    }
+}
+int Series::getN_movies() {
+    return N_movies;
+}
 
 // 4.
 void Series::addSerie(Serie _serie){
-    if(cantidadSeries < 100){
-        arrSeries[cantidadSeries++] = _serie;
+    if(N_series < 100){
+        arrSeries[N_series++] = _serie;
     }
     else{
         cout << "No espacio" << endl;
@@ -53,104 +55,116 @@ void Series::addSerie(Serie _serie){
     Si no se pudo añadir por falta de espacio muestra
     "No espacio"*/
 
-
-
-// 5.
-void Series::calculaCalificacionPromedioSeries(){
-
-    for(int index = 0; index < cantidadSeries; index++){
-        arrSeries[index].averageRating();
+void Series::addMovie(Movie _movie){
+    if(N_movies < 100){
+        arrMovies[N_movies++] = _movie;
+    }
+    else{
+        cout << "No espacio" << endl;
     }
 
+}
+
+// 5.
+void Series::AverageRatingSeries(){
+    for(int index = 0; index < N_series; index++){
+        arrSeries[index].averageRating();
+    }
 }
     /*para todas las series que existan en el arreglo
     manda llamar al método calculaCalificacionPromedio( )
     para que actualice la calificacion de cada Serie del
     arreglo.*/
 
+void Series::AverageRatingMovies(){
+    int acum = 0, value = 0;
 
+    for(int index = 0; index < N_movies; index++){
+        value = arrMovies[index].getRating();
+        acum = acum + value;
+    }
 
-/* 6.
-void Series::leerArchivo(){
-    leerArchivo("C:\Users\karak\OneDrive\Escritorio\TC1033 ARCHIVOS");
-
+    if(N_movies > 0) {
+        int average;
+        average = acum/N_movies;
+    }
 }
+
     /*- lee el archivo de Series.csv
     y las da de alta en el arreglo, posteriormente
     lee el archivo de episodios y los añade a su Serie
     correspondiente */
 
-void Series::leerArchivo()
+void Series::ReadFileSeries()
 {
-    string linea, dato;
-    int  index, columna;
-    Episodio ep;
+    string line, data;
+    int  index, column;
+    Episode ep;
     Serie serie;
-    ifstream lectura;
-    lectura.open("C:\\Users\\karak\\OneDrive\\Escritorio\\Proyectos Clion\\FinalProyect\\Series23.csv", ios::in);
+    ifstream lecture;
+    lecture.open("C:\\Users\\karak\\OneDrive\\Escritorio\\Proyectos Clion\\FinalProyect\\Series23.csv", ios::in);
     index = 0;
-    while ( getline(lectura, linea)) // lee una serie
+    while ( getline(lecture, line))
     {
-       // cout << linea << endl; //borrar
-        std::stringstream renglon{linea};
+        std::stringstream row{line};
 
-        columna = 0;
-        while (getline(renglon, dato, ',')) // separa los elementos,
+        column = 0;
+        while (getline(row, data, ','))
         {
-            switch (columna++)
+            switch (column++)
             {
                 case 0: // iD
-                    serie.setID(dato);
+                    serie.setID(data);
                     break;
                 case 1: // Titulo
-                    serie.setTitle(dato);
+                    serie.setTitle(data);
                     break;
                 case 2: // duracion
-                    serie.setDuration(stoi(dato));
+                    serie.setDuration(stoi(data));
                     break;
                 case 3: // genero
-                    serie.setGenre(dato);
+                    serie.setGenre(data);
                     break;
                 case 4: // calificación promedio
-                    serie.setCalificacion(stoi(dato));
+                    serie.setRating(stoi(data));
                     break;
                 case 5: //cant episodios - inicializar con 0 episodios todas las series
                     serie.setN_episodes(0);
                     break;
             }
-        }// fin while
+        }
 
-        // para verificar si se guardo correctamente
-       // cout << serie.str( ) << endl;  // borrar
+
+        cout << serie.str( ) << endl;
         addSerie(serie);
-        //cout << "*********  se añadio una serie - Cantidad de series ="  <<  cantidadSeries << endl;
+        cout << "*********  se añadio una serie - Cantidad de series ="  <<  N_series << endl;
 
     }
-    lectura.close();
+    lecture.close();
 
     // LEER LOS EPISODIOS DE LAS SERIES
     index = 0;
-    lectura.open("C:\\Users\\karak\\OneDrive\\Escritorio\\Proyectos Clion\\FinalProyect\\Episodios23.csv", ios::in);
-    while ( getline(lectura, linea))
+    lecture.open("C:\\Users\\karak\\OneDrive\\Escritorio\\Proyectos Clion\\FinalProyect\\Episodios23.csv", ios::in);
+    while ( getline(lecture, line))
     {
       //  cout << linea << endl; // se borra
-        std::stringstream renglon(linea);
-        columna = 0;
-        while (getline(renglon, dato, ',')) // separar los elementos,
+        std::stringstream renglon(line);
+        column = 0;
+        while (getline(renglon, data, ',')) // separar los elementos,
         {
-            switch (columna++)
+            switch (column++)
             {
                 case 0:
-                    index = stoi(dato) - 1;  // a qué serie pertenece?
+                    index = stoi(data) - 1;  // a qué serie pertenece?
                     break;
                 case 1: // Titulo
-                    ep.setTitle(dato);
+                    ep.setTitle(data);
                     break;
                 case 2: // temporada
-                    ep.setSeason(stoi(dato)); // string to int
+                    ep.setSeason(stoi(data)); // string to int
                     break;
                 case 3: // calificacion
-                    ep.setAverage(stoi(dato)); // string to double
+                    ep.setAverage(stoi(data)); // string to double
                     break;
             }
         } // al salir de aqui ya se separo toda la línea
@@ -158,15 +172,60 @@ void Series::leerArchivo()
         arrSeries[index].addEpisode(ep);
     }
 
-    lectura.close();
+    lecture.close();
+
 }
 
+void Series::ReadFileMovies() {
+    string line, data;
+    int  index, column;
+    Movie movie;
+    ifstream lecture;
+    lecture.open("C:\\Users\\karak\\OneDrive\\Escritorio\\Proyectos Clion\\FinalProyect\\Movies23.csv", ios::in);
+    index = 0;
+    while ( getline(lecture, line))
+    {
+        std::stringstream row{line};
 
-// 7.
-void Series::reporteSeries(int calificacion){
+        column = 0;
+        while (getline(row, data, ','))
+        {
+            switch (column++)
+            {
+                case 0: // iD
+                    movie.setID(data);
+                break;
+                case 1: // Titulo
+                    movie.setTitle(data);
+                break;
+                case 2: // duracion
+                    movie.setDuration(stoi(data));
+                break;
+                case 3: // genero
+                    movie.setGenre(data);
+                break;
+                case 4: // calificación promedio
+                    movie.setRating(stoi(data));
+                break;
+                case 5: //cant episodios - inicializar con 0 episodios todas las series
+                    movie.setOscars(stoi(data));
+                break;
+            }
+        }
 
-    for(int index = 0; index < cantidadSeries; index++){
-        if(arrSeries[index].getCalificacion() == calificacion){
+
+        cout << movie.str( ) << endl;
+        addMovie(movie);
+        cout << "*********  se añadio una pelicula - Cantidad de peliculas ="  <<  N_movies << endl;
+
+    }
+    lecture.close();
+}
+
+void Series::ReportSeries(int rating){
+
+    for(int index = 0; index < N_series; index++){
+        if(arrSeries[index].getRating() == rating){
             cout << index + 1 << "," << arrSeries[index].str() << endl;
         }
     }
@@ -179,24 +238,35 @@ void Series::reporteSeries(int calificacion){
     desplegar la información de la serie usando el método str( )*/
 
 
+void Series::inventory(){
+    int AverageAcumS, AverageAcumM;
+    int averageS, averageM;
 
-// 8.
-void Series::inventario(){
-    int acumuladorPromedio;
-    int promedio;
+    AverageAcumS = 0;
+    AverageAcumM = 0;
 
-    acumuladorPromedio = 0;
-
-    for(int index = 0; index < cantidadSeries; index++){
+    for(int index = 0; index < N_series; index++){
         cout << index + 1 << "," << arrSeries[index].str() << endl;
-        acumuladorPromedio = arrSeries[index].getCalificacion() + acumuladorPromedio;
+        AverageAcumS = arrSeries[index].getRating() + AverageAcumS;
     }
-    if(cantidadSeries > 0){
-        promedio = (acumuladorPromedio / cantidadSeries);
-        cout << "Promedio = " << promedio << endl;
+    if(N_series > 0){
+        averageS = (AverageAcumS / N_series);
+        cout << "Average Series = " << averageS << endl;
     }
     else{
         cout << "No Series\n";
+    }
+
+    for(int index = 0;index < N_movies; index++) {
+        cout << index + 1 << "," << arrMovies[index].str() << endl;
+        AverageAcumM = arrMovies[index].getRating() + AverageAcumM;
+    }
+    if(N_movies > 0){
+        averageM = (AverageAcumM / N_movies);
+        cout << "Average movies = " << averageM << endl;
+    }
+    else{
+        cout << "No Movies\n";
     }
 
 }

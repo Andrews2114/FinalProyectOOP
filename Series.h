@@ -12,30 +12,37 @@
 using namespace std;
 
 #include "Serie.h"
+#include "Movie.h"
 
 class Series{
 public:
-    // Método Constructor
     Series();
 
-    // Método Modificador
-    void setCantidadSeries(int _cantidadSeries);
+    void setN_series(int _N_series);
+    int getN_series();
 
-    // Método de Acceso
-    int getCantidadSeries();
+    void setN_movies(int _N_movies);
+    int getN_movies();
 
-    // Otros Métodos
     void addSerie(Serie _series);
-    void calculaCalificacionPromedioSeries();
-    void leerArchivo();
-    void reporteSeries(int calificacion);
-    void inventario();
+    void addMovie(Movie _movie);
+
+    void AverageRatingSeries();
+    void AverageRatingMovies();
+
+    void ReadFileSeries();
+    void ReadFileMovies();
+
+    void ReportSeries(int rating);
+    void inventory();
 
 protected:
 
 private:
     Serie arrSeries[100];
-    int cantidadSeries;
+    Movie arrMovies[100];
+    int N_movies;
+    int N_series;
 };
 
 #endif // SERIES_H

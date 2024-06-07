@@ -32,3 +32,7 @@ int Movie::getOscars() {
     return oscars;
 }
 
+string Movie::str() {
+    return iD + ',' + title + ',' + to_string(duration) + ',' + genre + ',' + to_string(rating) + ',' + to_string(oscars);
+}
+

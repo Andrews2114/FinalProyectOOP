@@ -32,9 +32,7 @@ public:
     string getGenre();
     int getRating();
 
-    string virtual str() {
-
-    }
+    string virtual str() = 0;
 
 };
 
