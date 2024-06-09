@@ -1,21 +1,14 @@
-//
-//  main.cpp
-//  Proyecto
-//
-//  Created by Ma. Guadalupe Roque Díaz de León on 21/11/23.
-// Cedrick Patricio Treviño Ortiz
-// A01198868
-
 
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
+
 #include "Serie.h"
-#include "Episodio.h"
+
 #include "Series.h"
+
 using namespace std;
 
-void leerSerie(std::string &_id, std::string &_titulo, int &_duracion, std::string &_genero, int &_calificacion, int &_cantEpisodios){
+void leerSerie(std::string &_id, std::string &_titulo, int &_duracion, std::string &_genero, int &_calificacion,
+               int &_cantEpisodios) {
     //cout << "Ingresa el id:";
     cin >> _id;
 
@@ -26,27 +19,27 @@ void leerSerie(std::string &_id, std::string &_titulo, int &_duracion, std::stri
     //cout << "Ingresa la duracion en minutos:";
     cin >> _duracion;
 
-   // cout << "Ingresa el genero:";
+    // cout << "Ingresa el genero:";
     cin >> _genero;
 
-   // cout << "Ingresa la calificación:";
+    // cout << "Ingresa la calificación:";
     cin >> _calificacion;
 
     //cout << "Ingresa la cantidad de episodios:";
     cin >> _cantEpisodios;
 }
 
-void leerEpisodio(std::string &_titulo, int &_temporada, int &_calificacion){
+void leerEpisodio(std::string &_titulo, int &_temporada, int &_calificacion) {
     //cout << "Ingresa titulo del Episodio:";
     cin.ignore();
     getline(cin, _titulo);
-   //cout << "Ingresa temporada:";
+    //cout << "Ingresa temporada:";
     cin >> _temporada;
-   // cout << "Ingresa calificación:";
+    // cout << "Ingresa calificación:";
     cin >> _calificacion;
 }
 
-int menu( ){ //: Función que despliega el siguiente menú de opciones y lee y retorna el valor leído
+int menu() { //: Función que despliega el siguiente menú de opciones y lee y retorna el valor leído
     int opcion;
 
     cin >> opcion;
@@ -57,19 +50,19 @@ int main() {
     // 1º Declaración de objetos de las clase creadas, llamar a los constructores con parámatros
     // Titulo temporada calificacion
     Episodio episodio1{"GRADUACION", 1, 100}; // calificacion, episodios
-    Serie ser{"TEC","ITESM", 1000,"APRENDIZAJE", 0, 0};
+    Serie ser{"TEC", "ITESM", 1000, "APRENDIZAJE", 0, 0};
     Series yuhuTec;
 
 
     // 2º Declaración de variables
-    int  index, opcion, temporada, duracion, calificacion, cantEpisodios;
-    std::string id,titulo,genero;
+    int index, opcion, temporada, duracion, calificacion, cantEpisodios;
+    std::string id, titulo, genero;
 
     //* 3º Inicializar la vccc antes del ciclo
     opcion = menu();
 
     //* 4º Incluir la vccc dentro de la condicion del ciclo
-    while (opcion != 0){
+    while (opcion != 0) {
 
         //* 5º Determinar que hacer en cada opcion
         switch (opcion) {
@@ -156,10 +149,9 @@ int main() {
                 // se pide el episodio 1
                 cin >> index;
                 episodio1 = ser.getEpisodio(index);
-                if (index == -1){
+                if (index == -1) {
                     cout << "No existe el episodio\n";
-                }
-                else{
+                } else {
                     cout << episodio1.str() << endl;
                 }
                 break;

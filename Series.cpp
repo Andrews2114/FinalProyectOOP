@@ -1,13 +1,3 @@
-//
-//  Series.cpp
-//  Proyecto-Avance3
-//
-//  Created by Ma. Guadalupe Roque Díaz de León on 21/11/23.
-// Cedrick Patricio Treviño Ortiz
-// A01198868
-//
-// Video
-// https://youtu.be/qcsqA9Yr_a8
 
 #include "Series.h"
 
