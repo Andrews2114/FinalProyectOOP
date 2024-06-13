@@ -3,55 +3,51 @@
 #include "Episode.h"
 
 // Constructores
-Episode::Episode(){
+Episode::Episode() {
     title = "Paganini";
     season = 24;
-    rating = 10000;
-
+    rating = 1;
 }
 
-Episode::Episode(string _title, int _season, int _rating){
+Episode::Episode(string _title, int _season, int _rating) : title(_title),
+                                                            season(_season),
+                                                            rating(_rating) {}
+
+
+void Episode::setTitle(string _title) {
     title = _title;
+}
+
+void Episode::setSeason(int _season) {
     season = _season;
+}
+
+void Episode::setAverage(double _rating) {
     rating = _rating;
-
-
 }
 
-// La pone
-void Episode::setTitle(string _title){
-    title = _title;
 
-}
-
-void Episode::setSeason(int _season){
-    season = _season;
-
-}
-
-void Episode::setAverage(int _rating){
-    rating = _rating;
-
-}
-
-// La recibe
-string Episode::getTitle(){
+string Episode::getTitle() {
     return title;
 
 }
 
-int Episode::getSeason(){
+int Episode::getSeason() {
     return season;
-
 }
 
-int Episode::getRating(){
+double Episode::getRating() {
     return rating;
-
 }
 
-// Otro
-string Episode::str(){
-    return (title + ',' + to_string(season) + ',' + to_string(rating));
+string Episode::str() {
+    return "Title: " + title + ", Season: " + to_string(season) + ", Rating: " + to_string(rating);
+}
 
+Episode Episode::operator+(Episode &ep) const {
+    Episode count;
+
+    count.setAverage(rating + ep.getRating());
+
+    return count;
 }

@@ -1,63 +1,50 @@
-//
-//  main.cpp
-//  Proyecto
-//
-// Cedrick Patricio Treviño Ortiz
-// A01198868
-// 7 de junio 2024
-
-
 #include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
 #include "Serie.h"
-#include "Episode.h"
-#include "Series.h"
+#include "FilmManager.h"
+
 using namespace std;
 
-
-int menu(){
+int menu() {
     int opcion;
-
+    cout
+            << "Option 1: Read and display data\nOption 2: Display stored films\nOption 3: Display quantity of films\n0 to exit"
+            << endl;
     cin >> opcion;
     return opcion;
 }
 
 int main() {
-    Series t;
+    FilmManager t;
 
-    int  index, opcion, temporada, duracion, calificacion, cantEpisodios;
-    std::string id,titulo,genero;
+    int index, opcion, temporada, duracion, calificacion, cantEpisodios;
+    std::string id, titulo, genero;
 
     opcion = menu();
 
-    while (opcion != 0){
+    while (opcion != 0) {
 
         switch (opcion) {
 
-            case 1: // Sirve para leer los datos y mostrar la lectura de los datos
+            case 1: // It reads the data and display the data reading
                 t.ReadFileSeries();
-            	cout <<"\n" << endl;
-            	t.ReadFileMovies();
-            break;
-            case 2: // Sirve para desplegar el inventario de las pelicualas y series con sus respectivos valores
+                cout << "\n" << endl;
+                t.ReadFileMovies();
+                break;
+            case 2: // It displays the inventory of movies and series with their respective values
                 t.AverageRatingSeries();
-            	cout <<"\n" << endl;
-            	t.AverageRatingMovies();
-            	cout <<"\n" << endl;
-            	t.inventory();
-            break;
-            case 3: // Sirve para obtener la cantidad de series y peliculas de los datos leidos
-                cout << t.getN_series() << endl;
-            	cout << t.getN_movies() << endl;
-
-            break;
+                cout << "\n" << endl;
+                t.AverageRatingMovies();
+                cout << "\n" << endl;
+                t.inventory();
+                break;
+            case 3: // It obtains the quantity of series and movies from the read data
+                cout << "There are " << t.getN_series() << " Series" << endl;
+                cout << "There are " << t.getN_movies() << " Movies" << endl;
+                break;
             default:
                 break;
         }
-
         opcion = menu();
-
     }
     return 0;
 }
