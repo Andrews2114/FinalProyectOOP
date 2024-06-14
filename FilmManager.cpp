@@ -20,7 +20,7 @@ FilmManager::FilmManager() {
 }
 // Default constructor, initializes the attribute N_series
 // with 0.
-
+    
 void FilmManager::setN_series(int N_series1) {
     if (N_series1 >= 0 && N_series1 < 100) {
         N_series = N_series1;

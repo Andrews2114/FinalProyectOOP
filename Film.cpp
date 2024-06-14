@@ -61,7 +61,7 @@ double Film::getRating() {
 }
 
 string Film::str() {
-    return "ID: " + iD + ",Title: " + title + ", Duration: " + to_string(duration) + ", Genre: " + genre +
+    return "ID: " + iD + ",Title: " + title + ", Duration: " + to_string(duration) + " min , Genre: " + genre +
            ", Rating: " + to_string(rating);
 }
 

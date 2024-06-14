@@ -11,6 +11,7 @@
 #include <sstream>
 #include <cstring>
 #include <algorithm>
+#include <cctype>
 using namespace std;
 
 #include "Serie.h"
