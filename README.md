@@ -1,7 +1,9 @@
 # FinalProyectOOP
 FinalProyectOOP
+
 Example running the options and variations
 Paths hardcoded, needed change.
+
 C:\Users\4ndre\Downloads\POO2024\cmake-build-debug\finalProject.exe
 Option 1: Read and display data
 Option 2: Display stored films
