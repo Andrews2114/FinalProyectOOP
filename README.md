@@ -1,8 +1,9 @@
 # FinalProyectOOP
 FinalProyectOOP
 
-Example running the options and variations
+Example running the options and variations.
 Paths hardcoded, needed change.
+See in github as Code.
 
 C:\Users\4ndre\Downloads\POO2024\cmake-build-debug\finalProject.exe
 Option 1: Read and display data
