@@ -28,7 +28,8 @@ int main() {
 
     opcion = menu();
     char a;
-    string s1, g1;
+    string g1;
+    char s1[100]={0};
     double a1;
     while (opcion != 0) {
 
@@ -57,7 +58,8 @@ int main() {
                 break;
             case 5: //Show the episodes of a specific series with a specific rating
                 cout << "What Series?: \n";
-                getline(cin, s1);
+                cin.getline(s1,100);
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 t.filter(s1, a1);
                 break;
             case 6: //Show the movies with a specific rating

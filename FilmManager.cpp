@@ -20,7 +20,7 @@ FilmManager::FilmManager() {
 }
 // Default constructor, initializes the attribute N_series
 // with 0.
-    
+
 void FilmManager::setN_series(int N_series1) {
     if (N_series1 >= 0 && N_series1 < 100) {
         N_series = N_series1;
@@ -242,13 +242,13 @@ void FilmManager::filter(char option) {
             cout << "What's the genre? : " << endl;
             cin >> genre;
             for (int index = 0; index < N_series; index++) {
-                if (arrSeries[index].getGenre() == genre) {
+                if (arrSeries[index].getGenre().find(genre) != std::string::npos) {
                     cout << arrSeries[index].str() << endl;
                     found = true;
                 }
             }
             for (int index = 0; index < N_movies; index++) {
-                if (arrMovies[index].getGenre() == genre) {
+                if (arrMovies[index].getGenre().find(genre) != std::string::npos) {
                     cout << arrMovies[index].str() << endl;
                     found = true;
                 }
@@ -264,16 +264,20 @@ void FilmManager::filter(const string &option1, double option2) {
     option2 = 1;
     cout << "What rating?: \n";
     cin >> option2;
-    string str;
+    bool found = false;
+    cout << option1;
     if (option1 != "l" && option2 > 0) {
         for (int index = 0; index < N_series; index++) {
-            if (arrSeries[index].getTitle() == option1) {
-                if (arrSeries[index].getRating() == option2) {
-                    cout << arrSeries[index].str() << endl;
+            if (arrSeries[index].getTitle().find(option1) != std::string::npos) {//Avoids special chars for comparison
+                for (int i=0;i<arrSeries[index].getN_episodes();i++) {
+                    if (arrSeries[index].getEpisode(i).getRating() == option2) {
+                        cout << arrSeries[index].getEpisode(i).str() << endl;
+                        found = true;
+                    }
                 }
-                { cout << "None found\n"; }
+                break;
             }
-        }
+        }if(not(found)){cout << "Not Found\n";}
     } else {
         cout << "Invalid Option" << endl;
     }
@@ -298,15 +302,17 @@ void FilmManager::filterMovie(double a1) {
 
 void FilmManager::rateVideo(char type, double rating) {
     bool found = false;
-    string title;
+    char title[100]={0};
     cout << "What's the title? : " << endl;
-    cin >> title;
+    cin.getline(title,100);
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
     cout << "Whats the rating ?" << endl;
     cin >> rating;
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
     if (type != 'l') {
         if (type == 'S') {
             for (int index = 0; index < N_series; index++) {
-                if (arrSeries[index].getTitle() == title) {
+                if (arrSeries[index].getTitle().find(title) != std::string::npos) {
                     arrSeries[index].setRating(rating);
                     cout << arrSeries[index].str() << endl;
                     found = true;
@@ -315,7 +321,7 @@ void FilmManager::rateVideo(char type, double rating) {
             }
         } else if (type == 'M') {
             for (int index = 0; index < N_movies; index++) {
-                if (arrMovies[index].getTitle() == title) {
+                if (arrMovies[index].getTitle().find(title) != std::string::npos) {
                     arrMovies[index].setRating(rating);
                     cout << arrMovies[index].str() << endl;
                     found = true;
