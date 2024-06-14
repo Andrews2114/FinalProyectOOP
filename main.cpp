@@ -7,7 +7,14 @@ using namespace std;
 int menu() {
     int opcion;
     cout
-            << "Option 1: Read and display data\nOption 2: Display stored films\nOption 3: Display quantity of films\n0 to exit"
+            << "Option 1: Read and display data\n"
+            << "Option 2: Display stored films\n"
+            << "Option 3: Display quantity of films\n"
+            << "Option 4: Show the videos with a specific rating or from a specific genre\n"
+            << "Option 5: Show the episodes of a specific series with a specific rating\n"
+            << "Option 6: Show the movies with a specific rating\n"
+            << "Option 7: Rate a video\n"
+            << "0 to exit"
             << endl;
     cin >> opcion;
     return opcion;
@@ -20,7 +27,9 @@ int main() {
     std::string id, titulo, genero;
 
     opcion = menu();
-
+    char a;
+    string s1, g1;
+    double a1;
     while (opcion != 0) {
 
         switch (opcion) {
@@ -40,6 +49,26 @@ int main() {
             case 3: // It obtains the quantity of series and movies from the read data
                 cout << "There are " << t.getN_series() << " Series" << endl;
                 cout << "There are " << t.getN_movies() << " Movies" << endl;
+                break;
+            case 4: //Show the videos with a specific rating or from a specific genre
+                cout << "Filter by rating or genre ?/ r ,g: ";
+                cin >> a;
+                t.filter(a);
+                break;
+            case 5: //Show the episodes of a specific series with a specific rating
+                cout << "What Series?: \n";
+                getline(cin, s1);
+                t.filter(s1, a1);
+                break;
+            case 6: //Show the movies with a specific rating
+                cout << "What rating ?: ";
+                cin >> a1;
+                t.filterMovie(a1);
+                break;
+            case 7: //Rate a video
+                cout << "What type of video and what rating ? M,S and rating: ";
+                cin >> a;
+                t.rateVideo(a, a1);
                 break;
             default:
                 break;

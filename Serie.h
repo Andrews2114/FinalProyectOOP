@@ -13,12 +13,14 @@ using namespace std;
 class Serie : public Film {
 private:
     int N_episodes;
-    Episode episodes[10];
+    Episode episodes[100];
 
 public:
     Serie();
 
     Serie(string _iD, string _title, int _duration, string _genre, int _rating, int N_episodes_);
+
+    Serie(string _iD, string _title, int _duration, string _genre, int _rating);
 
     void setEpisode(int &index, Episode _episode);
 

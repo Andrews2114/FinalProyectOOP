@@ -1,4 +1,18 @@
+
 #include "FilmManager.h"
+
+//Created by Andres A01198777
+// Function to split a string by a delimiter
+string *split(const string &s, char delimiter) {
+    auto *tokens = new string[10];
+    string token;
+    istringstream tokenStream(s);
+    int i = 0;
+    while (getline(tokenStream, token, delimiter)) {
+        tokens[i++] = token;
+    }
+    return tokens;
+}
 
 FilmManager::FilmManager() {
     N_series = 0;
@@ -88,70 +102,35 @@ reads the episodes file and adds them to their
 corresponding Series */
 
 void FilmManager::ReadFileSeries() {
-    string line, data;
-    int index, column;
-    Episode ep;
-    Serie serie;
-    ifstream lecture;
-    lecture.open(R"(C:\\Users\\4ndre\\Downloads\\POO2024\\FinalProyectOOP\\Series23.csv)");
-    index = 0;
-    while (getline(lecture, line)) {
-        std::stringstream row{line};
-        column = 0;
-        while (getline(row, data, ',')) {
-            switch (column++) {
-                case 0: // iD
-                    serie.setID(data);
-                    break;
-                case 1: // Title
-                    serie.setTitle(data);
-                    break;
-                case 2: // duration
-                    serie.setDuration(stoi(data));
-                    break;
-                case 3: // genre
-                    serie.setGenre(data);
-                    break;
-                case 4: // average rating
-                    serie.setRating(stoi(data));
-                    break;
-                case 5: //N_episodes
-                    serie.setN_episodes(stoi(data));
-                    break;
+    ifstream seriesFile(R"(C:\\Users\\4ndre\\Downloads\\POO2024\\FinalProyectOOP\\Series23.csv)");
+    string line;
+    int seriesCount = 0;
+    while (getline(seriesFile, line)) {
+        string *tokens = split(line, ',');
+        Serie s(tokens[0], tokens[1], stoi(tokens[2]), tokens[3], stod(tokens[4]));
+        arrSeries[seriesCount++] = s;
+        addSerie(s);
+        delete[] tokens;
+    }
+    // Read episodes file
+    ifstream episodesFile(R"(C:\\Users\\4ndre\\Downloads\\POO2024\\FinalProyectOOP\\Episodios23.csv)");
+    while (getline(episodesFile, line)) {
+        string *tokens = split(line, ',');
+        Episode e(tokens[1], stoi(tokens[2]), stod(tokens[3]));
+        // Add episode to the corresponding series
+        for (int i = 0; i < seriesCount; ++i) {
+            if (arrSeries[i].getID() == tokens[0]) {
+                arrSeries[i].addEpisode(e);
+                break;
             }
         }
-        addSerie(serie);
+        delete[] tokens;
     }
-    lecture.close();
-    index = 0;
-    lecture.open(R"(C:\\Users\\4ndre\\Downloads\\POO2024\\FinalProyectOOP\\Episodios23.csv)");
-    while (getline(lecture, line)) {
-        std::stringstream row(line);
-        column = 0;
-        while (getline(row, data, ',')) {
-            switch (column++) {
-                case 0:
-                    index = stoi(data) - 1;
-                    break;
-                case 1: // Title
-                    ep.setTitle(data);
-                    break;
-                case 2: // Season
-                    ep.setSeason(stoi(data)); // string to int
-                    break;
-                case 3: // rating
-                    ep.setAverage(stod(data)); // string to double
-                    break;
-            }
-            arrSeries[index].addEpisode(ep);
-        }
+    for (int i = 0; i < seriesCount; ++i) {
+        cout << arrSeries[i].str() << endl;
+        cout << "********* a series was added - Number of series =" << i + 1 << endl;
     }
-    lecture.close();
-    for (int i=0; i< index+1; i++) {
-        Serie dummy = arrSeries[i];
-        cout << dummy.str() << endl;
-        cout << "********* a series was added - Number of series =" << i+1 << endl;
-    }
+
 }
 
 void FilmManager::ReadFileMovies() {
@@ -236,6 +215,118 @@ void FilmManager::inventory() {
         cout << "No Movies\n";
     }
 
+}
+
+void FilmManager::filter(char option) {
+    double rate;
+    string genre;
+    bool found;
+    if (option != ' ') {
+        if (option == 'r') {
+            cout << "What's the rating? : " << endl;
+            cin >> rate;
+            for (int index = 0; index < N_series; index++) {
+                if (arrSeries[index].getRating() == rate) {
+                    cout << arrSeries[index].str() << endl;
+                    found = true;
+                }
+            }
+            for (int index = 0; index < N_movies; index++) {
+                if (arrMovies[index].getRating() == rate) {
+                    cout << arrMovies[index].str() << endl;
+                    found = true;
+                }
+            }
+            if (not(found)) { cout << "None found\n"; }
+        } else if (option == 'g') {
+            cout << "What's the genre? : " << endl;
+            cin >> genre;
+            for (int index = 0; index < N_series; index++) {
+                if (arrSeries[index].getGenre() == genre) {
+                    cout << arrSeries[index].str() << endl;
+                    found = true;
+                }
+            }
+            for (int index = 0; index < N_movies; index++) {
+                if (arrMovies[index].getGenre() == genre) {
+                    cout << arrMovies[index].str() << endl;
+                    found = true;
+                }
+            }
+            if (not(found)) { cout << "None found\n"; }
+        } else { cout << "Invalid Option" << endl; }
+    } else {
+        cout << "Invalid Option" << endl;
+    }
+}
+
+void FilmManager::filter(const string &option1, double option2) {
+    option2 = 1;
+    cout << "What rating?: \n";
+    cin >> option2;
+    string str;
+    if (option1 != "l" && option2 > 0) {
+        for (int index = 0; index < N_series; index++) {
+            if (arrSeries[index].getTitle() == option1) {
+                if (arrSeries[index].getRating() == option2) {
+                    cout << arrSeries[index].str() << endl;
+                }
+                { cout << "None found\n"; }
+            }
+        }
+    } else {
+        cout << "Invalid Option" << endl;
+    }
+}
+
+void FilmManager::filterMovie(double a1) {
+    bool found = false;
+    if (a1 > 0) {
+        for (int index = 0; index < N_movies; index++) {
+            if (arrMovies[index].getRating() == a1) {
+                if (arrMovies[index].getRating() == a1) {
+                    cout << arrMovies[index].str() << endl;
+                    found = true;
+                }
+            }
+        }
+        if (not(found)) { cout << "None found\n"; }
+    } else {
+        cout << "Invalid Option" << endl;
+    }
+}
+
+void FilmManager::rateVideo(char type, double rating) {
+    bool found = false;
+    string title;
+    cout << "What's the title? : " << endl;
+    cin >> title;
+    cout << "Whats the rating ?" << endl;
+    cin >> rating;
+    if (type != 'l') {
+        if (type == 'S') {
+            for (int index = 0; index < N_series; index++) {
+                if (arrSeries[index].getTitle() == title) {
+                    arrSeries[index].setRating(rating);
+                    cout << arrSeries[index].str() << endl;
+                    found = true;
+                    break;
+                }
+            }
+        } else if (type == 'M') {
+            for (int index = 0; index < N_movies; index++) {
+                if (arrMovies[index].getTitle() == title) {
+                    arrMovies[index].setRating(rating);
+                    cout << arrMovies[index].str() << endl;
+                    found = true;
+                    break;
+                }
+            }
+        } else { cout << "Invalid Option" << endl; }
+        if (not(found)) { cout << "None found\n"; }
+    } else {
+        cout << "Invalid Option" << endl;
+    }
 }
 
 /* displays all the series from the

@@ -1,5 +1,3 @@
-// Cedrick Patricio Treviño Ortiz
-// A01198868
 #include "Serie.h"
 
 Serie::Serie() {
@@ -10,6 +8,13 @@ Serie::Serie() {
     rating = 10;
     N_episodes = 25;
 }
+
+// Cedrick Patricio Treviño Ortiz
+// A01198868
+Serie::Serie(string _iD, string _title, int _duration, string _genre, int _rating) : Film(_iD, _title,
+                                                                                          _duration,
+                                                                                          _genre,
+                                                                                          _rating) {}
 
 Serie::Serie(string _iD, string _title, int _duration, string _genre, int _rating, int N_episodes_) : Film(_iD, _title,
                                                                                                            _duration,
@@ -72,7 +77,9 @@ string Serie::str() {
     string acum = "\n";
     // concatenate the information of all episodes
     for (int index = 0; index < N_episodes; index++) {
-        acum = acum + episodes[index].str() + "\n";
+        if (episodes[index].getTitle() != "Paganini") {
+            acum = acum + episodes[index].str() + "\n";
+        }
     }
     return Film::str() + ", Episodes: " + to_string(N_episodes) + acum;
 }
